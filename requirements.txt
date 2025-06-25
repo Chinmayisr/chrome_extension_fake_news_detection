@@ -1,0 +1,25 @@
+fastapi
+uvicorn
+pydantic
+sentence-transformers
+scikit-learn
+transformers
+numpy
+chromadb
+selenium
+PyPDF2
+pandas
+langchain 
+langchainhub 
+langchain_community 
+chromadb 
+accelerate 
+torch
+beautifulsoup4
+langchain-huggingface
+ollama
+langchain-ollama
+# If you use torch-based models, include torch (uncomment if needed)
+# torch
+# If you use pandas in csv_db.py or elsewhere, include pandas (uncomment if needed)
+# pandas

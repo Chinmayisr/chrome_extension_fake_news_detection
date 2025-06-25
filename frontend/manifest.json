@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Fake News Verifier",
+  "version": "1.0",
+  "description": "Checks credibility of news headlines.",
+  "permissions": ["activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Fake News Verifier"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "host_permissions": ["http://127.0.0.1:8000/"]
+}
