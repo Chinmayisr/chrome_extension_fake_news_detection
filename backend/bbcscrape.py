@@ -6,11 +6,10 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import time
-from backend.news_topic import NEWS_TOPIC
 
-def get_bbc_links():
+def get_bbc_links(search_term):
     options = Options()
-    # options.add_argument('--headless')  # Uncomment for headless mode
+    #options.add_argument('--headless')  # Uncomment for headless mode
     options.add_argument('--start-maximized')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     links = []
@@ -18,6 +17,25 @@ def get_bbc_links():
         # ---- Step 1: Open BBC News ----
         driver.get("https://www.bbc.com/news")
         time.sleep(2)
+
+        # --- Handle popups/modals (example for BBC cookie banner or modal) ---
+        try:
+            # Try to close a modal if present (adjust selector as needed)
+            modal_close = driver.find_element(By.CSS_SELECTOR, ".tp-modal [aria-label='Close'], .tp-modal button, .tp-modal .close")
+            modal_close.click()
+            print("✅ Modal popup closed.")
+            time.sleep(1)
+        except Exception:
+            print("No modal popup found or already closed.")
+
+        # Try to close cookie banner if present
+        try:
+            cookie_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Agree') or contains(text(), 'Accept')]")
+            cookie_button.click()
+            print("✅ Cookie popup closed.")
+            time.sleep(1)
+        except Exception:
+            print("No cookie popup found or already closed.")
 
         # ---- Step 2: Click on Search Icon's Parent Button ----
         search_icon_button = driver.find_element(By.XPATH, '//*[@id="__next"]/div/header/div/div[1]/button')
@@ -27,7 +45,6 @@ def get_bbc_links():
 
         # ---- Step 3: Enter Search Term in Search Bar ----
         search_input = driver.find_element(By.XPATH, '//*[@id="__next"]/div/div[5]/div/div[1]/div/input')
-        search_term = NEWS_TOPIC
         # Extract main keywords (remove common stopwords)
         stopwords = {"the", "is", "in", "at", "of", "on", "and", "a", "to", "after", "has", "with", "for", "by", "an", "as", "it", "from", "this", "that", "be", "are", "was", "were", "or", "but", "not", "which", "have", "had", "will", "would", "can", "could", "should", "may", "might", "do", "does", "did", "so", "such", "if", "then", "than", "also", "their", "its", "about", "into", "more", "other", "some", "any", "all", "no", "only", "over", "out", "up", "down", "off", "just", "now", "like", "because", "how", "when", "where", "who", "what", "why"}
         keywords = [word for word in search_term.split() if word.lower() not in stopwords]
@@ -71,5 +88,6 @@ def get_bbc_links():
     return links
 
 if __name__ == "__main__":
-    bbc_links = get_bbc_links()
+    search_term = input("Enter search term: ")
+    bbc_links = get_bbc_links(search_term)
     print(bbc_links)

@@ -6,11 +6,10 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import time
-from backend.news_topic import NEWS_TOPIC
 
-def get_hindu_links():
+def get_hindu_links(search_term):
     options = Options()
-    # options.add_argument('--headless')  # Optional: Run in headless mode
+    #options.add_argument('--headless')  # Optional: Run in headless mode
     options.add_argument('--start-maximized')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     links = []
@@ -26,7 +25,6 @@ def get_hindu_links():
 
         # ---- Step 3: Enter Search Keywords in Search Bar ----
         search_input = driver.find_element(By.XPATH, '//*[@id="gsc-i-id1"]')
-        search_term = NEWS_TOPIC
 
         # Filter top keywords
         stopwords = {"the", "is", "in", "at", "of", "on", "and", "a", "to", "after", "has", "with", "for", "by", "an", "as", "it", "from", "this", "that", "be", "are", "was", "were", "or", "but", "not", "which", "have", "had", "will", "would", "can", "could", "should", "may", "might", "do", "does", "did", "so", "such", "if", "then", "than", "also", "their", "its", "about", "into", "more", "other", "some", "any", "all", "no", "only", "over", "out", "up", "down", "off", "just", "now", "like", "because", "how", "when", "where", "who", "what", "why"}
@@ -58,5 +56,6 @@ def get_hindu_links():
     return links
 
 if __name__ == "__main__":
-    hindu_links = get_hindu_links()
+    search_term = input("Enter search term: ")
+    hindu_links = get_hindu_links(search_term)
     print(hindu_links)
