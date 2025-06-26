@@ -1,6 +1,6 @@
 (function () {
   // --- CONFIGURATION ---
-  const BACKEND_URL = "http://localhost:8000/print/";
+  const BACKEND_URL = "http://localhost:8000/analyze_news/";
 
   // Floating icon
   const button = document.createElement("div");
