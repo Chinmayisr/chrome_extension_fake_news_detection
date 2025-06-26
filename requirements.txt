@@ -19,6 +19,7 @@ beautifulsoup4
 langchain-huggingface
 ollama
 langchain-ollama
+webdriver-manager
 # If you use torch-based models, include torch (uncomment if needed)
 # torch
 # If you use pandas in csv_db.py or elsewhere, include pandas (uncomment if needed)

@@ -1,4 +1,6 @@
 import os
+import re
+import json
 os.environ["USER_AGENT"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
 
 # 1. Load and split documents
@@ -81,4 +83,16 @@ question = """Bankers and analysts now warn that the new regulatory changes coul
 
 
 response = rag_chain.invoke(question)
-print("🔍 Answer:\n", response)
+#print("🔍 Answer:\n", response)
+
+# Extract JSON part from the response
+json_match = re.search(r'\{[\s\S]*\}', response)
+if json_match:
+    json_str = json_match.group(0)
+    try:
+        response_json = json.loads(json_str)
+        print("Extracted JSON:", response_json)
+    except json.JSONDecodeError:
+        print("Failed to parse JSON.")
+else:
+    print("No JSON found in response.")

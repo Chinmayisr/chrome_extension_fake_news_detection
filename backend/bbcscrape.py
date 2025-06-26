@@ -27,12 +27,16 @@ try:
 
     # ---- Step 3: Enter Search Term in Search Bar ----
     search_input = driver.find_element(By.XPATH, '//*[@id="__next"]/div/div[5]/div/div[1]/div/input')
-    search_term = "Oil prices tumble after Israel agrees to Iran ceasefire"
+    search_term = """Bankers and analysts now warn that the new regulatory changes could
+ lead to a 3% drop in return on assets (RoAs) for both banks and NBFCs, as the RBI has
+   mandated fresh provisioning requirements across the sector. Experts say banks, unlike NBFCs,
+     are unprepared for the shift to Ind-AS standards, which could significantly strain profitability 
+     and lending capacity in the coming quarters."""
     # Extract main keywords (remove common stopwords)
     stopwords = {"the", "is", "in", "at", "of", "on", "and", "a", "to", "after", "has", "with", "for", "by", "an", "as", "it", "from", "this", "that", "be", "are", "was", "were", "or", "but", "not", "which", "have", "had", "will", "would", "can", "could", "should", "may", "might", "do", "does", "did", "so", "such", "if", "then", "than", "also", "their", "its", "about", "into", "more", "other", "some", "any", "all", "no", "only", "over", "out", "up", "down", "off", "just", "now", "like", "because", "how", "when", "where", "who", "what", "why"}
     keywords = [word for word in search_term.split() if word.lower() not in stopwords]
     # Use only the first 3 keywords for the search
-    top_n = 3
+    top_n = 10
     selected_keywords = keywords[:top_n]
     keyword_query = " ".join(selected_keywords)
     search_input.send_keys(keyword_query)
