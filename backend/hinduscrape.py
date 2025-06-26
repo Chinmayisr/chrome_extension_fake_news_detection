@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import time
-from news_topic import NEWS_TOPIC
+from backend.news_topic import NEWS_TOPIC
 
 def get_hindu_links():
     options = Options()
