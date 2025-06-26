@@ -158,7 +158,7 @@
   function sendToBackend(data) {
     showDetectionResult({}, true); // Show loading verdict immediately
     const fullText = `📰 Headline:\n${data.headline}\n\n📄 Description:\n${data.description}`;
-    fetch("http://127.0.0.1:8000/print/", {
+    fetch("http://127.0.0.1:8000/run_rag_pipeline/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
