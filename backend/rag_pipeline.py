@@ -10,12 +10,8 @@ os.environ["USER_AGENT"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKi
 bbc_links = get_bbc_links()
 hindu_links = get_hindu_links()
 
-# Add any static docs if needed
-static_docs = [
-    "https://economictimes.indiatimes.com/industry/banking/finance/rbi-guidelines-for-project-finance-cre-a-smaller-provisions-hikes-no-big-worry-for-banks-nbfcs/articleshow/121982012.cms"
-]
 
-all_links = bbc_links + hindu_links + static_docs
+all_links = bbc_links + hindu_links 
 
 # 1. Load and split documents
 from langchain_community.document_loaders import WebBaseLoader
