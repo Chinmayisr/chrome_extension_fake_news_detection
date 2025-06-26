@@ -1,6 +1,7 @@
 import os
 import re
 import json
+from news_topic import NEWS_TOPIC
 os.environ["USER_AGENT"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
 
 # 1. Load and split documents
@@ -75,12 +76,7 @@ rag_chain = (
 )
 
 # 5. Ask a question
-question = """Bankers and analysts now warn that the new regulatory changes could
- lead to a 3% drop in return on assets (RoAs) for both banks and NBFCs, as the RBI has
-   mandated fresh provisioning requirements across the sector. Experts say banks, unlike NBFCs,
-     are unprepared for the shift to Ind-AS standards, which could significantly strain profitability 
-     and lending capacity in the coming quarters."""
-
+question = NEWS_TOPIC
 
 response = rag_chain.invoke(question)
 #print("🔍 Answer:\n", response)

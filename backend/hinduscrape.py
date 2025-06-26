@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import time
+from news_topic import NEWS_TOPIC
 
 # ---- Setup WebDriver ----
 options = Options()
@@ -27,7 +28,7 @@ try:
 
     # ---- Step 3: Enter Search Keywords in Search Bar ----
     search_input = driver.find_element(By.XPATH, '//*[@id="gsc-i-id1"]')
-    search_term = """Why is the RBI changing gold loan rules? | Explained"""
+    search_term = NEWS_TOPIC
 
     # Filter top keywords
     stopwords = {"the", "is", "in", "at", "of", "on", "and", "a", "to", "after", "has", "with", "for", "by", "an", "as", "it", "from", "this", "that", "be", "are", "was", "were", "or", "but", "not", "which", "have", "had", "will", "would", "can", "could", "should", "may", "might", "do", "does", "did", "so", "such", "if", "then", "than", "also", "their", "its", "about", "into", "more", "other", "some", "any", "all", "no", "only", "over", "out", "up", "down", "off", "just", "now", "like", "because", "how", "when", "where", "who", "what", "why"}
