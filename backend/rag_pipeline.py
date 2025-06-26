@@ -2,13 +2,26 @@ import os
 import re
 import json
 from news_topic import NEWS_TOPIC
+from bbcscrape import get_bbc_links
+from hinduscrape import get_hindu_links
 os.environ["USER_AGENT"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+
+# ---- Get links from scrapers ----
+bbc_links = get_bbc_links()
+hindu_links = get_hindu_links()
+
+# Add any static docs if needed
+static_docs = [
+    "https://economictimes.indiatimes.com/industry/banking/finance/rbi-guidelines-for-project-finance-cre-a-smaller-provisions-hikes-no-big-worry-for-banks-nbfcs/articleshow/121982012.cms"
+]
+
+all_links = bbc_links + hindu_links + static_docs
 
 # 1. Load and split documents
 from langchain_community.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-loader = WebBaseLoader(["https://economictimes.indiatimes.com/industry/banking/finance/rbi-guidelines-for-project-finance-cre-a-smaller-provisions-hikes-no-big-worry-for-banks-nbfcs/articleshow/121982012.cms"])
+loader = WebBaseLoader(all_links)
 docs = loader.load()
 
 splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
