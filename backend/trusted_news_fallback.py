@@ -47,3 +47,11 @@ This text is topically and semantically unrelated to the original SEBI algorithm
     },
     
 ]
+
+def get_trusted_context(news_text):
+    """
+    Given a news text, return a trusted context string if a relevant match is found in the fallback database.
+    Return None if no relevant trusted context is found.
+    """
+    # TODO: Implement actual trusted context lookup logic
+    return None

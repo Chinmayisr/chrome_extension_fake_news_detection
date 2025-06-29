@@ -82,13 +82,17 @@
       </div>`;
       return;
     }
+    const trustedNewsValue = (typeof result.trusted_news === "string" && result.trusted_news.trim() !== "")
+      ? result.trusted_news
+      : (result.trusted_news === null || result.trusted_news === undefined)
+        ? "N/A"
+        : String(result.trusted_news);
     resultDiv.innerHTML = `
         <b>📰 Fake News Detection Result</b><br><br>
         <b>Trust Score:</b> ${typeof result.trust_score === "number" ? result.trust_score.toFixed(2) : result.trust_score}<br>
         <b>Verdict:</b> ${result.verdict || (result.is_fake === false ? "Trustworthy" : result.is_fake === true ? "Fake" : "Unknown")}<br>
-        
         ${result.correct_information ? `<b>Correct Info:</b> <span style="font-size:0.95em">${result.correct_information}</span><br>` : ""}
-        ${result.trusted_news && result.trusted_news.title ? `<b>Trusted News:</b> ${result.trusted_news.title}<br>` : ""}
+        <b>Trusted News:</b> <span style="font-size:0.95em">${trustedNewsValue}</span><br>
         <button id="close-fake-news-extension-panel" style="margin-top:10px;padding:4px 10px;">Close</button>
     `;
     document.getElementById("close-fake-news-extension-panel").onclick = () => {
