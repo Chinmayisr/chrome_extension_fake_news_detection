@@ -86,7 +86,7 @@
         <b>📰 Fake News Detection Result</b><br><br>
         <b>Trust Score:</b> ${typeof result.trust_score === "number" ? result.trust_score.toFixed(2) : result.trust_score}<br>
         <b>Verdict:</b> ${result.verdict || (result.is_fake === false ? "Trustworthy" : result.is_fake === true ? "Fake" : "Unknown")}<br>
-        <b>Reasoning:</b> <span style="font-size:0.95em">${result.reasoning}</span><br>
+        
         ${result.correct_information ? `<b>Correct Info:</b> <span style="font-size:0.95em">${result.correct_information}</span><br>` : ""}
         ${result.trusted_news && result.trusted_news.title ? `<b>Trusted News:</b> ${result.trusted_news.title}<br>` : ""}
         <button id="close-fake-news-extension-panel" style="margin-top:10px;padding:4px 10px;">Close</button>

@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.rag_pipeline import run_rag_pipeline
 from backend.bbcscrape import get_bbc_links
 from backend.hinduscrape import get_hindu_links
+from backend.etscrape import get_et_links
 import re
 
 app = FastAPI()
@@ -29,10 +30,11 @@ def extract_keywords(text):
 async def analyze_news(msg: Message):
     # Extract keywords from the news text
     keywords = extract_keywords(msg.text)
-    # Get links from both scrapers using the keywords
+    # Only start scraping when the endpoint is called (i.e., when the extension button is clicked)
+    et_links = get_et_links(keywords)  # ET scraping only runs now
     bbc_links = get_bbc_links(keywords)
     hindu_links = get_hindu_links(keywords)
-    all_links = bbc_links + hindu_links
+    all_links = bbc_links + hindu_links + et_links
     # Run the RAG pipeline with the provided news text and links
     result = run_rag_pipeline(msg.text, all_links)
     return result
