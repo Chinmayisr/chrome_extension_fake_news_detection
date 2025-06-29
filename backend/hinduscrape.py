@@ -9,7 +9,7 @@ import time
 
 def get_hindu_links(search_term):
     options = Options()
-    #options.add_argument('--headless')  # Optional: Run in headless mode
+    options.add_argument('--headless')  # Optional: Run in headless mode
     options.add_argument('--start-maximized')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     links = []

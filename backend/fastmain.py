@@ -34,7 +34,7 @@ async def analyze_news(msg: Message):
     et_links = get_et_links(keywords)  # ET scraping only runs now
     #bbc_links = get_bbc_links(keywords)
     #hindu_links = get_hindu_links(keywords)
-    all_links =  et_links #+bbc_links + hindu_links 
+    all_links =  et_links #bbc_links + hindu_links 
     # Run the RAG pipeline with the provided news text and links
     result = run_rag_pipeline(msg.text, all_links)
     return result
