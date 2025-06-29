@@ -24,7 +24,7 @@ def extract_keywords(text):
     stopwords = {"the", "is", "in", "at", "of", "on", "and", "a", "to", "after", "has", "with", "for", "by", "an", "as", "it", "from", "this", "that", "be", "are", "was", "were", "or", "but", "not", "which", "have", "had", "will", "would", "can", "could", "should", "may", "might", "do", "does", "did", "so", "such", "if", "then", "than", "also", "their", "its", "about", "into", "more", "other", "some", "any", "all", "no", "only", "over", "out", "up", "down", "off", "just", "now", "like", "because", "how", "when", "where", "who", "what", "why"}
     words = re.findall(r"\w+", text)
     keywords = [word for word in words if word.lower() not in stopwords]
-    return " ".join(keywords[:10])
+    return " ".join(keywords[:15])
 
 @app.post("/run_rag_pipeline/")
 async def analyze_news(msg: Message):
@@ -32,9 +32,9 @@ async def analyze_news(msg: Message):
     keywords = extract_keywords(msg.text)
     # Only start scraping when the endpoint is called (i.e., when the extension button is clicked)
     et_links = get_et_links(keywords)  # ET scraping only runs now
-    bbc_links = get_bbc_links(keywords)
-    hindu_links = get_hindu_links(keywords)
-    all_links = bbc_links + hindu_links + et_links
+    #bbc_links = get_bbc_links(keywords)
+    #hindu_links = get_hindu_links(keywords)
+    all_links =  et_links #+bbc_links + hindu_links 
     # Run the RAG pipeline with the provided news text and links
     result = run_rag_pipeline(msg.text, all_links)
     return result
