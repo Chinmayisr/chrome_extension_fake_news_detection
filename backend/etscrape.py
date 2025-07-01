@@ -5,6 +5,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
 def get_et_links(search_term):
@@ -17,8 +19,11 @@ def get_et_links(search_term):
         driver.get("https://economictimes.indiatimes.com/")
         time.sleep(3)
 
-        # Find and use the search bar
-        search_input = driver.find_element(By.XPATH, '//*[@id="ticker_newsearch"]')
+        # Wait for the search bar to be present and interactable
+        search_input = WebDriverWait(driver, 12).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="ticker_newsearch"]'))
+        )
+        search_input.clear()
         search_input.send_keys(search_term)
         search_input.send_keys(Keys.RETURN)
         time.sleep(5)
